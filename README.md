@@ -42,6 +42,10 @@ https://whimsical.com/p1-mvp-S5ge3TBYdKJgxfkxuLFtD2
 PostMVP:
 https://whimsical.com/p1-post-mvp-7aNDTUuE368aKJESwo4XLh
 
+Laptop MVP:
+https://whimsical.com/p1-laptop-mvp-GhsYt8tMiTcYPdUP6Qq2PA
+
+
 ### MVP/PostMVP
 
 MVP will be a display of the percent of Chicago population vaccinated, updated on a daily basis, followed by a tabular listing of all zip codes and percentages.
