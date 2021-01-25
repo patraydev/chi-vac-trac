@@ -53,12 +53,14 @@ PostMVP will add a map, expandable data on each zip code, and a search bar.
 - Retrieve current vaccine_series_completed_percent_population for each Chicago zip code from API
 - Display current total percentage for Chicago on top of page
 - Display percentage vaccinated underneath in a pleasing tabular flexy format
+- Add laptop responsitivity
 
 #### PostMVP  
 
 - Add slippy map with zip code tiles and tints for percentage completed
 - Expand zipcode data on click in table
 - Implement search bar with expanded data for zip codes
+- Add tablet and widescreen responsitivity
 
 ## Project Schedule
 
