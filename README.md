@@ -1,20 +1,38 @@
-# chi-vac-trac
-Chicago Vaccine Tracker
-
-
 # Project Overview
 
 ## Project Name
 
-The name of your project.
+Chicago Vaccine Tracker
 
 ## Project Description
 
-Use this section to describe your final project and perhaps any links to relevant sites that help convey the concept and\or functionality.
+This project will pull data from the city of Chicago Open Data Project and create a dynamically updated, easy-to read, open source, and add-free tracker of the percentage of Chicago residents vaccinated against COVID-19 by zip code.
 
 ## API and Data Sample
 
-Specify the API you are using and include a link. Show us a snippet of JSON returned by your API so we know you can access it and get the info you need
+https://dev.socrata.com/foundry/data.cityofchicago.org/553k-3xzc
+
+ {
+        "zip_code": "60601",
+        "date": "2021-01-16T00:00:00.000",
+        "total_doses_daily": "22",
+        "total_doses_cumulative": "958",
+        "_1st_dose_daily": "17",
+        "_1st_dose_cumulative": "666",
+        "_1st_dose_percent_population": "0.044",
+        "vaccine_series_completed_daily": "5",
+        "vaccine_series_completed_cumulative": "292",
+        "vaccine_series_completed_percent_population": "0.019",
+        "population": "15083",
+        "zip_code_location": {
+            "type": "Point",
+            "coordinates": [
+                -87.622844,
+                41.886262
+            ]
+        },
+        "row_id": "60601-20210116"
+    },
 
 ## Wireframes
 
@@ -22,20 +40,19 @@ Upload images of your wireframes to an image hosting site or add them to an asse
 
 ### MVP/PostMVP
 
-The functionality will then be divided into two separate lists: MPV and PostMVP.  Carefully decided what is placed into your MVP as the client will expect this functionality to be implemented upon project completion.  
+MVP will be a display of the percent of Chicago population vaccinated, updated on a daily basis, followed by a tabular listing of all zip codes and percentages. 
 
 #### MVP 
-*These are examples only. Replace with your own MVP features.*
 
-- Find and use external api 
-- Render data on page 
-- Allow user to choose favorites 
+- Retrieve current vaccine_series_completed_percent_population for each Chicago zip code from API
+- Display current total percentage for Chicago on top of page
+- Display percentage vaccinated underneath in a pleasing tabular flexy format
 
 #### PostMVP  
-*These are examples only. Replace with your own Post-MVP features.*
 
-- Add second API
-- Use local storage to save user favorites
+- Add slippy map with zip code tiles and tints for percentage completed
+- Expand zipcode data on click in table
+- Implement search bar with expanded data for zip codes
 
 ## Project Schedule
 
