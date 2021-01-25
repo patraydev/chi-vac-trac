@@ -36,11 +36,17 @@ https://dev.socrata.com/foundry/data.cityofchicago.org/553k-3xzc
 
 ## Wireframes
 
-Upload images of your wireframes to an image hosting site or add them to an assets folder in your repo and link them here with a description of each specific wireframe.
+MVP:
+https://whimsical.com/p1-mvp-S5ge3TBYdKJgxfkxuLFtD2
+
+PostMVP:
+https://whimsical.com/p1-post-mvp-7aNDTUuE368aKJESwo4XLh
 
 ### MVP/PostMVP
 
-MVP will be a display of the percent of Chicago population vaccinated, updated on a daily basis, followed by a tabular listing of all zip codes and percentages. 
+MVP will be a display of the percent of Chicago population vaccinated, updated on a daily basis, followed by a tabular listing of all zip codes and percentages.
+
+PostMVP will add a map, expandable data on each zip code, and a search bar.
 
 #### MVP 
 
@@ -71,7 +77,7 @@ You are **responsible** for scheduling time with your squad to seek approval for
 
 ## Priority Matrix
 
-Include a full list of features that have been prioritized based on the `Time and Importance` Matrix.  Link this image in a similar manner to your wireframes
+https://whimsical.com/priority-matrix-RxcddBWJmjgZoD1J2bUjoq
 
 ## Timeframes
 
@@ -81,9 +87,12 @@ Time frames are also key in the development cycle.  You have limited time to cod
 
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Adding Form | H | 3hrs| 3.5hrs | 3.5hrs |
-| Working with API | H | 3hrs| 2.5hrs | 2.5hrs |
-| Total | H | 6hrs| 5hrs | 5hrs |
+| Add basic HTML/CSS Structure | H | 3hrs|  |  |
+| Structure API call | H | 3hrs|  |  |
+| Append API data to DOM | H | 6hrs|  |  |
+| Update Styling/Implement Flexbox | H | 4hrs|  |  |
+| Troubleshoot and Finishing Touches | H | 2hrs|  |  |
+| Total | H | 18hrs|  |  |
 
 ## Code Snippet
 
