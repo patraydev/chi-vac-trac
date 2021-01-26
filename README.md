@@ -95,10 +95,14 @@ Time frames are also key in the development cycle.  You have limited time to cod
 | --- | :---: |  :---: | :---: | :---: |
 | Add basic HTML/CSS Structure | H | 3hrs|  |  |
 | Structure API call | H | 3hrs|  |  |
+| Filter data to receive needed info | H | 3hrs|  |  |
 | Append API data to DOM | H | 6hrs|  |  |
+| Research and apply progress bars | H | 3hrs|  |  |
+| Implement Search Bar | H | 4hrs|  |  |
 | Update Styling/Implement Flexbox | H | 4hrs|  |  |
+| Implement Map | H | 6hrs|  |  |
 | Troubleshoot and Finishing Touches | H | 2hrs|  |  |
-| Total | H | 18hrs|  |  |
+| Total | H | 32hrs|  |  |
 
 ## Code Snippet
 
