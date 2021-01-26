@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+  <title>Chicago Vaccine Tracker</title>
+</head>
+
+<body>
+
+  <div id="upDate"></div>
+  <div class="main-display">
+    <h2 id="chi-is">Chicago is</h2>
+    <h1 class="fuck-covid"></h1>
+    <h2 id="vaccinated">vaccinated</h2>
+  </div>
+  <div class="map-display">
+    <img src="" alt="">
+  </div>
+  <div class="search-bar">
+    <form>
+      <input type="text" id="searchbar" name="search" placeholder="search zip" maxlength="5" pattern="[0-9]*">
+    </form>
+  </div>
+  <div class="table">
+    <div class="table-row header">
+      <div class="cell zip">zip code</div>
+      <div class="cell percentVaxd">% vaccinated</div>
+      <div class="cell pop">population</div>
+      <div class="cell percentFirstDosed">% received first dose</div>
+      <div class="cell dosesYesterday">doses given yesterday</div>
+      <div class="cell dosesTotal">total doses given</div>
+    </div>
+  </div>
+
+</body>
+
+</html>
