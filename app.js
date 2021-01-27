@@ -60,7 +60,7 @@ const updateData = (data) => {
       console.log("latest date found");
       const objToAdd = {
         zip: element.zip_code,
-        percentVaxd: element.vaccine_series_completed_percent_population,
+        percentVaxd: `${Math.round(element.vaccine_series_completed_percent_population * 1000) / 10}%`,
         pop: element.population,
         percentFirstDosed: element._1st_dose_percent_population,
         dosesYesterday: element.total_doses_daily,
