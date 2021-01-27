@@ -1,7 +1,11 @@
 
 //gets the whole data from the city
 const getVaccineData = async () => {
-  let response = await axios.get('https://data.cityofchicago.org/resource/553k-3xzc.json');
+  let response = await axios.get('https://data.cityofchicago.org/resource/553k-3xzc.json')
+
+  // ? $select = zip_code, vaccine_series_completed_percent_population, population, _1st_dose_percent_population, total_doses_daily, total_doses_cumulative, date, vaccine_series_completed_cumulative');
+  // let response = await axios.get('https://data.cityofchicago.org/resource/553k-3xzc.json?$select=distinct(zip_code)')
+  // console.log(response2.data);
   if (response.status == 200) {
     // test for status 
     console.log(response.status)
@@ -13,35 +17,46 @@ const getVaccineData = async () => {
 //pulls data from each record for latest date and returns array
 const updateData = (data) => {
 
-  //iterates through the array to pull latest date
+  //iterates through the array return a object of zipcode:latest date pairs
   const findCurrentDate = (array) => {
 
-    console.log(array);
-    let latestDate = new Date("2015-03-25");
+    let datesByZip = {};
+    // let latestDate = new Date("2015-03-25");
+    counter = 0;
     array.forEach(element => {
-      let date = new Date(element.date)
-      if (date > latestDate) {
-        // console.log(element.date);
-        latestDate = date;
-      }
-    })
+      counter++;
+      if (!datesByZip.hasOwnProperty(element.zip_code)) {
+        // console.log(`created ${element.zip_code}`);
+        datesByZip[element.zip_code] = element.date;
+      } else {
+        let date = new Date(element.date)
+        if (date > datesByZip[element.zip_code]) {
+          // console.log(element.date);
+          datesByZip[element.zip_code] = date;
+        };
+      };
+    });
+    // console.log(counter);
+    console.log(datesByZip);
+    // console.log(Object.keys(datesByZip).length)
 
     //updates latest date indicator
     const upDate = document.querySelector('#upDate');
-    const dateData = document.createTextNode(`Last data released: ${latestDate}`);
+    const dateData = document.createTextNode(`Last data released: ${datesByZip[60601]}`);
     upDate.append(dateData);
 
-    console.log(latestDate);
-    return (latestDate);
+    // console.log(latestDate);
+    return (datesByZip);
   }
 
   //creates an array of chosen indicators for the latest date
-  latestDate = findCurrentDate(data);
+  datesByZip = findCurrentDate(data);
   latestData = [];
   data.forEach(element => {
     let date = new Date(element.date);
+    let zipDate = new Date(datesByZip[element.zip_code]);
     // console.log(date);
-    if (date.getTime() === latestDate.getTime()) {
+    if (date.getTime() === zipDate.getTime()) {
       console.log("latest date found");
       const objToAdd = {
         zip: element.zip_code,
@@ -49,7 +64,7 @@ const updateData = (data) => {
         pop: element.population,
         percentFirstDosed: element._1st_dose_percent_population,
         dosesYesterday: element.total_doses_daily,
-        dosesTotal: element.total_doses_cumulative,
+        peopleVaxd: element.vaccine_series_completed_cumulative,
       };
       latestData.push(objToAdd);
     };
@@ -66,14 +81,17 @@ const generateTable = (latestData) => {
   //then puts a big 'ol number for total percent vaxd
   let totalChiPop = 0;
   let totalPopVaxd = 0;
+  let totalPeopleVaxd = 0;
   latestData.forEach(element => {
     // console.log(element.pop);
     totalChiPop += Number(element.pop);
-    // console.log(`total chi pop ${totalChiPop}`);
     totalPopVaxd += (element.pop * element.percentVaxd);
-    // console.log(`totalPopVaxd ${totalPopVaxd}`);
+    totalPeopleVaxd += Number(element.peopleVaxd);
   });
-  const totalVaxd = totalPopVaxd / totalChiPop;
+  console.log(`total chi pop ${totalChiPop}`);
+  console.log(`city's % says: ${totalPopVaxd}`);
+  console.log(`calculated #: ${totalPeopleVaxd}`);
+  const totalVaxd = totalPeopleVaxd / totalChiPop;
   // console.log(totalVaxd);
   const bigNumber = document.createTextNode(`${Math.round(totalVaxd * 1000) / 10}%`);
   const fuckCovid = document.querySelector(".fuck-covid");

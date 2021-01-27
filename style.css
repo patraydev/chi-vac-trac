@@ -4,9 +4,12 @@ body {
 
 
 .main-display {
-  width: 100vw;
+  width: 80vw;
+  height: 40vh;
+  margin: 0 auto;
 display: flex;
 justify-content: center;
+flex-direction: column;
 align-items: center;
 text-align: center;
 background-color: #5417b6;
@@ -15,15 +18,20 @@ color: #d0d0d0;
 
 .fuck-covid {
   font-weight: 500;
+  margin: 0;
   font-size: 5em;
   align-self: center;
 }
 
 #chi-is {
+  margin:0;
+  flex: 0 1 auto;
 align-self: flex-start;
 }
 
 #vaccinated {
+  margin:0;
+  flex: 0 1 auto;
 align-self: flex-end;
 }
 
