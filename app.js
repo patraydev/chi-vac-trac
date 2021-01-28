@@ -5,7 +5,7 @@ const getVaccineData = async () => {
 
   // ? $select = zip_code, vaccine_series_completed_percent_population, population, _1st_dose_percent_population, total_doses_daily, total_doses_cumulative, date, vaccine_series_completed_cumulative');
   // let response = await axios.get('https://data.cityofchicago.org/resource/553k-3xzc.json?$select=distinct(zip_code)')
-  // console.log(response2.data);
+  console.log(response.data);
   if (response.status == 200) {
     // test for status 
     console.log(response.status)
@@ -21,32 +21,24 @@ const updateData = (data) => {
   const findCurrentDate = (array) => {
 
     let datesByZip = {};
-    // let latestDate = new Date("2015-03-25");
-    counter = 0;
     array.forEach(element => {
-      counter++;
       if (!datesByZip.hasOwnProperty(element.zip_code)) {
-        // console.log(`created ${element.zip_code}`);
+        console.log(`created ${element.zip_code}`);
         datesByZip[element.zip_code] = element.date;
       } else {
-        let date = new Date(element.date)
+        let date = new Date(element.date);
         if (date > datesByZip[element.zip_code]) {
-          // console.log(element.date);
           datesByZip[element.zip_code] = date;
         };
       };
     });
-    // console.log(counter);
-    console.log(datesByZip);
-    // console.log(Object.keys(datesByZip).length)
 
     //updates latest date indicator
     const upDate = document.querySelector('#up-date');
     lastUpdate = datesByZip[60601].slice(0, 10);
-    const dateData = document.createTextNode(`Last data released: ${lastUpdate}`);
+    const dateData = document.createTextNode(`Data last updated: ${lastUpdate}`);
     upDate.append(dateData);
 
-    // console.log(latestDate);
     return (datesByZip);
   }
 
@@ -56,9 +48,8 @@ const updateData = (data) => {
   data.forEach(element => {
     let date = new Date(element.date);
     let zipDate = new Date(datesByZip[element.zip_code]);
-    // console.log(date);
     if (date.getTime() === zipDate.getTime()) {
-      console.log("latest date found");
+      console.log(element);
       const objToAdd = {
         zip: element.zip_code,
         percentVaxd: `${Math.round(element.vaccine_series_completed_percent_population * 1000) / 10}%`,
@@ -71,7 +62,6 @@ const updateData = (data) => {
     };
   });
 
-  console.log(latestData);
   return latestData;
 }
 
@@ -84,7 +74,6 @@ const generateTable = (latestData) => {
   let totalPopVaxd = 0;
   let totalPeopleVaxd = 0;
   latestData.forEach(element => {
-    // console.log(element.pop);
     totalChiPop += Number(element.pop);
     totalPopVaxd += (element.pop * element.percentVaxd);
     totalPeopleVaxd += Number(element.peopleVaxd);
