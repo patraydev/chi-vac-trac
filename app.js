@@ -41,8 +41,9 @@ const updateData = (data) => {
     // console.log(Object.keys(datesByZip).length)
 
     //updates latest date indicator
-    const upDate = document.querySelector('#upDate');
-    const dateData = document.createTextNode(`Last data released: ${datesByZip[60601]}`);
+    const upDate = document.querySelector('#up-date');
+    lastUpdate = datesByZip[60601].slice(0, 10);
+    const dateData = document.createTextNode(`Last data released: ${lastUpdate}`);
     upDate.append(dateData);
 
     // console.log(latestDate);
@@ -93,9 +94,25 @@ const generateTable = (latestData) => {
   console.log(`calculated #: ${totalPeopleVaxd}`);
   const totalVaxd = totalPeopleVaxd / totalChiPop;
   // console.log(totalVaxd);
+
+
+  //make big %
   const bigNumber = document.createTextNode(`${Math.round(totalVaxd * 1000) / 10}%`);
   const fuckCovid = document.querySelector(".fuck-covid");
   fuckCovid.append(bigNumber);
+
+
+  //function sourced from
+  //https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  //make big ratio
+  const bigRatio = document.createTextNode(`${numberWithCommas(totalPeopleVaxd)} people out of ${numberWithCommas(totalChiPop)} total`);
+  const ratioContainer = document.querySelector('.big-ratio');
+  ratioContainer.append(bigRatio);
+
 
 
   const table = document.querySelector('.table');
@@ -138,7 +155,11 @@ const searchButton = document.querySelector('#searchbar');
 searchButton.addEventListener('keyup', searchPlease)
 
 
-  //searchbar functionality get
+  //header cells WILL reorder divs
+// const headerCells = querySelectorAll('.table-row.header > cell');
+// headerCells.forEach(headerCell => {
+
+// })
 
 
 
