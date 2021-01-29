@@ -18,7 +18,7 @@ jobs:
       - name: Fetch API Data 📦
         uses: JamesIves/fetch-api-data-action@releases/v1
         with:
-          ENDPOINT: https://data.cityofchicago.org/resource/553k-3xzc.json
+          ENDPOINT: https://data.cityofchicago.org/resource/553k-3xzc.json?$select=zip_code
           CONFIGURATION: '{ "method": "GET" }'
  #"headers": {"Authorization": "Bearer ${{ secrets.API_TOKEN }}"}
       - name: Build and Deploy 🚀
