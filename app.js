@@ -8,11 +8,11 @@ const getVaccineData = async () => {
 
   // ? $select = zip_code, vaccine_series_completed_percent_population, population, _1st_dose_percent_population, total_doses_daily, total_doses_cumulative, date, vaccine_series_completed_cumulative');
   // let response = await axios.get('https://data.cityofchicago.org/resource/553k-3xzc.json?$select=distinct(zip_code)')
-  console.log(response.data);
-  if (response.status == 200) {
-    // test for status 
-    console.log(response.status)
-  }
+  // console.log(response.data);
+  // if (response.status == 200) {
+  //   // test for status 
+  //   // console.log(response.status)
+  // }
   return response.data
 }
 
@@ -208,13 +208,13 @@ const reOrder = (e) => {
   rowsArray.forEach(row => {
     row.percentVaxd = row.percentVaxd.replace('%', '');
     row.percentFirstDosed = row.percentFirstDosed.replace('%', '');
+    row.zip = row.zip.replace('all', '111');
+    row.zip = row.zip.replace('Unknown', '222');
   });
-  console.log(rowsArray);
   //clone
   const origArray = [...rowsArray];
   //sort rows array on clicked stat
   const stat = e.target.classList[1];
-  // console.log(`sorting on ${stat}`);
   rowsArray.sort((a, b) => {
     if (Number(a[stat]) < Number(b[stat])) {
       return -1;
@@ -227,7 +227,6 @@ const reOrder = (e) => {
   });
   //compares to cloned original to reverse if already sorted
   if (rowsArray[0] === origArray[0]) {
-    console.log("reverser");
     rowsArray.sort((b, a) => {
       if (Number(a[stat]) < Number(b[stat])) {
         return -1;
@@ -242,6 +241,8 @@ const reOrder = (e) => {
   rowsArray.forEach(row => {
     row.percentVaxd += '%';
     row.percentFirstDosed += '%';
+    row.zip = row.zip.replace('111', 'all');
+    row.zip = row.zip.replace('222', 'Unknown');
   });
   //rebuild table
   generateTable(rowsArray);
@@ -250,17 +251,3 @@ const reOrder = (e) => {
 //adds event to header cells
 const headerCells = document.querySelectorAll('.table-row.header .cell');
 headerCells.forEach(cell => cell.addEventListener('click', reOrder));
-
-
-// const expandRow = (e) => {
-//   //   if (window is small)
-//   //   do thing. first thing.
-//   e.target.classList.add('.expanded');
-//   const cells = e.target.querySelectorAll('.cell');
-//   console.log(cells);
-// }
-
-// const allRows = document.querySelectorAll('.table-row.observation');
-
-// allRows.forEach(row => row.addEventListener('click', expandRow));
-

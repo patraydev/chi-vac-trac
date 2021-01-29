@@ -215,7 +215,6 @@ justify-content: center;
 
 .expanded-cell {
   color: rgb(126,168,167);
-  flex-basis: 1;
   padding: 0px 5px 0px 5px;
   margin: 0; 
   border: 1px solid;
