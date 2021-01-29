@@ -67,8 +67,30 @@ const updateData = (data) => {
   return latestData;
 }
 
+//make table, brick by brick - row by row
+const generateTable = (array) => {
+  const table = document.querySelector('.table');
+  while (table.querySelector('.table-row:nth-of-type(2)')) {
+    table.lastChild.remove();
+  }
+  console.log("table deleter");
+  array.forEach(element => {
+    const row = document.createElement('div');
+    row.classList.add('table-row', 'observation');
+    for (key in element) {
+
+      const cell = document.createElement('div');
+      cell.classList.add('cell', key);
+      const data = document.createTextNode(element[key]);
+      cell.append(data);
+      row.append(cell);
+    }
+    table.append(row);
+  })
+}
+
 //appends ot DOM from array of objects of selected indicators  
-const generateTable = (latestData) => {
+const appendData = (latestData) => {
   //generates summary statistics
   let totalChiPop = 0;
   let totalPopVaxd = 0;
@@ -113,25 +135,12 @@ const generateTable = (latestData) => {
   const ratioContainer = document.querySelector('.big-ratio');
   ratioContainer.append(bigRatio);
 
-  //make table, brick by brick - row by row
-  const table = document.querySelector('.table');
-  latestData.forEach(element => {
-    const row = document.createElement('div');
-    row.classList.add('table-row', 'observation');
-    for (key in element) {
 
-      const cell = document.createElement('div');
-      cell.classList.add('cell', key);
-      const data = document.createTextNode(element[key]);
-      cell.append(data);
-      row.append(cell);
-    }
-    table.append(row);
-  })
+  generateTable(latestData);
 }
 
 getVaccineData()
-  .then(response => generateTable(updateData(response)));
+  .then(response => appendData(updateData(response)));
 
 
 //search function eliminates non-matching zips on keyup
@@ -151,9 +160,10 @@ const searchButton = document.querySelector('#searchbar');
 searchButton.addEventListener('keyup', searchPlease);
 
 //header cells WILL reorder divs
-const reOrder = () => {
+const reOrder = (e) => {
   const rows = document.querySelectorAll('.table-row.observation');
-  console.log(rows);
+  // console.log(rows);
+  //rows become objects to sort
   let rowsArray = Array.from(rows, row => {
     let rObj = {};
     row.childNodes.forEach(child => {
@@ -161,7 +171,27 @@ const reOrder = () => {
     });
     return rObj;
   });
+
+  //sort rows array on clicked stat
+  rowsArray.sort((a, b) => {
+    const stat = e.target.classList[1];
+    if (Number(a[stat]) < Number(b[stat])) {
+      return -1;
+    }
+    if (Number(a[stat]) > Number(b[stat])) {
+      return 1;
+    } else {
+      console.log('returned 0');
+      return 0;
+    }
+  });
+
   console.log(rowsArray);
+
+  //rebuild table
+  generateTable(rowsArray);
+
+
 
   // rows.forEach(row = () => {
   //   const cells = this.querySelectorAll('.cell');
