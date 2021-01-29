@@ -67,7 +67,7 @@ const updateData = (data) => {
   return latestData;
 }
 
-//make table, brick by brick - row by row
+//tear down and rebuild, brick by brick - row by row
 const generateTable = (array) => {
   const table = document.querySelector('.table');
   while (table.querySelector('.table-row:nth-of-type(2)')) {
@@ -86,8 +86,8 @@ const generateTable = (array) => {
       row.append(cell);
     }
     table.append(row);
-  })
-}
+  });
+};
 
 //appends ot DOM from array of objects of selected indicators  
 const appendData = (latestData) => {
@@ -135,7 +135,7 @@ const appendData = (latestData) => {
   const ratioContainer = document.querySelector('.big-ratio');
   ratioContainer.append(bigRatio);
 
-
+  //does this
   generateTable(latestData);
 }
 
@@ -171,33 +171,40 @@ const reOrder = (e) => {
     });
     return rObj;
   });
-
+  const origArray = [...rowsArray];
   //sort rows array on clicked stat
+  const stat = e.target.classList[1];
+  console.log(`sorting on ${stat}`);
   rowsArray.sort((a, b) => {
-    const stat = e.target.classList[1];
     if (Number(a[stat]) < Number(b[stat])) {
       return -1;
     }
     if (Number(a[stat]) > Number(b[stat])) {
       return 1;
     } else {
-      console.log('returned 0');
+      // console.log('returned 0 on');
+      // console.log(a, b);
       return 0;
     }
   });
-
-  console.log(rowsArray);
+  //compares to cloned original to reverse if already sorted
+  if (rowsArray[0] === origArray[0]) {
+    console.log("reverser");
+    rowsArray.sort((b, a) => {
+      if (Number(a[stat]) < Number(b[stat])) {
+        return -1;
+      }
+      if (Number(a[stat]) > Number(b[stat])) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  };
+  // console.log(rowsArray);
 
   //rebuild table
   generateTable(rowsArray);
-
-
-
-  // rows.forEach(row = () => {
-  //   const cells = this.querySelectorAll('.cell');
-
-  // })
-  // e.target.classList[1]
 }
 
 
