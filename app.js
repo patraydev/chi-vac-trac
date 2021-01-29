@@ -67,32 +67,38 @@ const updateData = (data) => {
   return latestData;
 }
 
+const unExpand = () => {
+  document.querySelectorAll('.expanded').forEach(thing => thing.classList.remove('expanded'));
+  document.querySelectorAll('.expanded-cell').forEach(thing => thing.remove());
+}
+
 //row expander
 const expandRow = (e) => {
   //   if (window is small)
   //   do thing. first thing.
-  document.querySelectorAll('.expanded').forEach(thing => thing.classList.remove('expanded'));
-  document.querySelectorAll('.expanded-cell').forEach(thing => thing.remove());
-  e.target.parentNode.classList.add('expanded');
-  e.target.parentNode.childNodes.forEach(child => {
-    // window.getComputedStyle(child).visibility = 'hidden';
-    const cell = document.createElement('div');
-    cell.classList.add('expanded-cell');
-    const key = {
-      zip: 'zip code',
-      percentVaxd: '% vaccinated',
-      pop: 'population',
-      percentFirstDosed: '% received first dose',
-      dosesYesterday: 'doses given yesterday',
-      peopleVaxd: 'total vaccinated',
-      peopleFirstDosed: 'total received first dose'
-    };
-    const content = document.createTextNode(`${key[child.classList[1]]} : ${child.innerText}`);
-    e.target.parentNode.append(cell);
-    cell.append(content);
+  if (e.target.classList.contains('cell')) {
+    unExpand();
+    e.target.parentNode.classList.add('expanded');
+    e.target.parentNode.childNodes.forEach(child => {
+      // window.getComputedStyle(child).visibility = 'hidden';
+      const cell = document.createElement('div');
+      cell.classList.add('expanded-cell');
+      const key = {
+        zip: 'zip code',
+        percentVaxd: '% vaccinated',
+        pop: 'population',
+        percentFirstDosed: '% received first dose',
+        dosesYesterday: 'doses given yesterday',
+        peopleVaxd: 'total vaccinated',
+        peopleFirstDosed: 'total received first dose'
+      };
+      const content = document.createTextNode(`${key[child.classList[1]]} : ${child.innerText}`);
+      e.target.parentNode.append(cell);
+      cell.append(content);
 
-  });
-}
+    });
+  }
+};
 
 //tear down and rebuild, brick by brick - row by row
 const generateTable = (array) => {
@@ -188,6 +194,7 @@ searchButton.addEventListener('keyup', searchPlease);
 
 //header cells WILL reorder divs
 const reOrder = (e) => {
+  unExpand();
   const rows = document.querySelectorAll('.table-row.observation');
   //rows become objects to sort
   let rowsArray = Array.from(rows, row => {
@@ -197,6 +204,13 @@ const reOrder = (e) => {
     });
     return rObj;
   });
+  //remove % signs
+  rowsArray.forEach(row => {
+    row.percentVaxd = row.percentVaxd.replace('%', '');
+    row.percentFirstDosed = row.percentFirstDosed.replace('%', '');
+  });
+  console.log(rowsArray);
+  //clone
   const origArray = [...rowsArray];
   //sort rows array on clicked stat
   const stat = e.target.classList[1];
@@ -225,7 +239,10 @@ const reOrder = (e) => {
       }
     });
   };
-
+  rowsArray.forEach(row => {
+    row.percentVaxd += '%';
+    row.percentFirstDosed += '%';
+  });
   //rebuild table
   generateTable(rowsArray);
 }
