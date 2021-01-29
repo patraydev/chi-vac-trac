@@ -151,9 +151,23 @@ const searchButton = document.querySelector('#searchbar');
 searchButton.addEventListener('keyup', searchPlease);
 
 //header cells WILL reorder divs
-const reOrder = (e) => {
+const reOrder = () => {
+  const rows = document.querySelectorAll('.table-row.observation');
+  console.log(rows);
+  let rowsArray = Array.from(rows, row => {
+    let rObj = {};
+    row.childNodes.forEach(child => {
+      rObj[child.classList[1]] = child.innerText;
+    });
+    return rObj;
+  });
+  console.log(rowsArray);
 
-  e.target.classList[1]
+  // rows.forEach(row = () => {
+  //   const cells = this.querySelectorAll('.cell');
+
+  // })
+  // e.target.classList[1]
 }
 
 
@@ -162,12 +176,12 @@ console.log(headerCells);
 headerCells.forEach(cell => {
   cell.addEventListener('click', reOrder)
 
-})
+});
 
 
-const expandRow = () => {
-  if (window is small)
-  do thing.
-}
+// const expandRow = () => {
+//   if (window is small)
+//   do thing.
+// }
 
 
