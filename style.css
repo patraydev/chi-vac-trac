@@ -103,6 +103,7 @@ justify-content: center;
   text-align: center
 }
 
+
 /* //breakpoints courtesy https:\/\/devfacts.com\/media-queries-breakpoints-2021\/ */
 
 /* // Small devices (landscape phones, 576px and down) */
@@ -126,9 +127,9 @@ justify-content: center;
   .peopleFirstDosed{
     display: none;
   }
-  .table .table-row:nth-of-type(2){
+  /* .table .table-row:nth-of-type(2){
     display: none;
-  }
+  } */
 }
 
 /* // Medium devices (tablets, 576px and up) */
@@ -148,9 +149,9 @@ justify-content: center;
   .peopleFirstDosed{
     display: none;
   }
-  .table .table-row:nth-of-type(2){
+  /* .table .table-row:nth-of-type(2){
     display: none;
-  }
+  } */
 }
 
 /* // Medium devices (tablets, 768px and up) */
@@ -164,9 +165,9 @@ justify-content: center;
   .peopleVaxd{
     display: inline;
   }
-  .table .table-row:nth-of-type(2){
+  /* .table .table-row:nth-of-type(2){
     display: none;
-  }
+  } */
 }
 
 /* // Large devices (desktops, 992px and up) */
@@ -183,8 +184,8 @@ justify-content: center;
   .percentFirstDosed{
     display: inline;
   }
-  .table .table-row:nth-of-type(2){
-    display: flex;
+  /* .table .table-row:nth-of-type(2){
+    display: flex; */
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
@@ -198,4 +199,27 @@ justify-content: center;
   .peopleFirstDosed{
     display: inline;
   }
+}
+
+.expanded {
+  line-height: 2;
+    background-color: rgb(31,25,16);
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+/*   align-content: baselinespace-around;  */
+}
+
+.expanded .cell {
+  display: none;
+}
+
+.expanded-cell {
+  color: rgb(126,168,167);
+  flex-basis: 1;
+  padding: 0px 5px 0px 5px;
+  margin: 0; 
+  border: 1px solid;
+  border-radius: 3px;
+  margin: 2px;
+  
 }

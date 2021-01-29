@@ -1,6 +1,6 @@
 //api token: ab51fqgncwi136oat93o6ukep
 //token secret: 5qbfefqlokm3wpcywgsq1mixl7w9ejccnf220vrkxigqa8604y
-
+//why you look at my secret?
 
 //gets the whole data from the city
 const getVaccineData = async () => {
@@ -67,16 +67,43 @@ const updateData = (data) => {
   return latestData;
 }
 
+//row expander
+const expandRow = (e) => {
+  //   if (window is small)
+  //   do thing. first thing.
+  document.querySelectorAll('.expanded').forEach(thing => thing.classList.remove('expanded'));
+  document.querySelectorAll('.expanded-cell').forEach(thing => thing.remove());
+  e.target.parentNode.classList.add('expanded');
+  e.target.parentNode.childNodes.forEach(child => {
+    // window.getComputedStyle(child).visibility = 'hidden';
+    const cell = document.createElement('div');
+    cell.classList.add('expanded-cell');
+    const key = {
+      zip: 'zip code',
+      percentVaxd: '% vaccinated',
+      pop: 'population',
+      percentFirstDosed: '% received first dose',
+      dosesYesterday: 'doses given yesterday',
+      peopleVaxd: 'total vaccinated',
+      peopleFirstDosed: 'total received first dose'
+    };
+    const content = document.createTextNode(`${key[child.classList[1]]} : ${child.innerText}`);
+    e.target.parentNode.append(cell);
+    cell.append(content);
+
+  });
+}
+
 //tear down and rebuild, brick by brick - row by row
 const generateTable = (array) => {
   const table = document.querySelector('.table');
   while (table.querySelector('.table-row:nth-of-type(2)')) {
     table.lastChild.remove();
   }
-  console.log("table deleter");
   array.forEach(element => {
     const row = document.createElement('div');
     row.classList.add('table-row', 'observation');
+    row.addEventListener('click', expandRow);
     for (key in element) {
 
       const cell = document.createElement('div');
@@ -162,7 +189,6 @@ searchButton.addEventListener('keyup', searchPlease);
 //header cells WILL reorder divs
 const reOrder = (e) => {
   const rows = document.querySelectorAll('.table-row.observation');
-  // console.log(rows);
   //rows become objects to sort
   let rowsArray = Array.from(rows, row => {
     let rObj = {};
@@ -174,7 +200,7 @@ const reOrder = (e) => {
   const origArray = [...rowsArray];
   //sort rows array on clicked stat
   const stat = e.target.classList[1];
-  console.log(`sorting on ${stat}`);
+  // console.log(`sorting on ${stat}`);
   rowsArray.sort((a, b) => {
     if (Number(a[stat]) < Number(b[stat])) {
       return -1;
@@ -182,8 +208,6 @@ const reOrder = (e) => {
     if (Number(a[stat]) > Number(b[stat])) {
       return 1;
     } else {
-      // console.log('returned 0 on');
-      // console.log(a, b);
       return 0;
     }
   });
@@ -201,24 +225,25 @@ const reOrder = (e) => {
       }
     });
   };
-  // console.log(rowsArray);
 
   //rebuild table
   generateTable(rowsArray);
 }
 
-
+//adds event to header cells
 const headerCells = document.querySelectorAll('.table-row.header .cell');
-console.log(headerCells);
-headerCells.forEach(cell => {
-  cell.addEventListener('click', reOrder)
-
-});
+headerCells.forEach(cell => cell.addEventListener('click', reOrder));
 
 
-// const expandRow = () => {
-//   if (window is small)
-//   do thing.
+// const expandRow = (e) => {
+//   //   if (window is small)
+//   //   do thing. first thing.
+//   e.target.classList.add('.expanded');
+//   const cells = e.target.querySelectorAll('.cell');
+//   console.log(cells);
 // }
 
+// const allRows = document.querySelectorAll('.table-row.observation');
+
+// allRows.forEach(row => row.addEventListener('click', expandRow));
 
