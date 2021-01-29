@@ -14,12 +14,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+      - name: Fetch latest data
+        run: |-
+          curl "https://data.cityofchicago.org/resource/553k-3xzc.json" | jq . > results.json
   
-      - name: Fetch API Data 📦
-        uses: JamesIves/fetch-api-data-action@releases/v1
-        with:
-          ENDPOINT: https://data.cityofchicago.org/resource/553k-3xzc.json?$select=zip_code
-          CONFIGURATION: '{ "method": "GET" }'
+  
+  
+  #    - name: Fetch API Data 📦
+  #      uses: JamesIves/fetch-api-data-action@releases/v1
+   #     with:
+    #      ENDPOINT: https://data.cityofchicago.org/resource/553k-3xzc.json?$select=zip_code
+     #     CONFIGURATION: '{ "method": "GET" }'
  #"headers": {"Authorization": "Bearer ${{ secrets.API_TOKEN }}"}
       - name: Build and Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
