@@ -6,7 +6,6 @@ name: Gather API Data
 on:
   schedule:
     - cron: '0 10 * * *' 
-  workflow_dispatch: Gather Latest Data
 jobs:
   build:
     runs-on: ubuntu-latest
