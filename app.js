@@ -1,3 +1,6 @@
+//api token: ab51fqgncwi136oat93o6ukep
+//token secret: 5qbfefqlokm3wpcywgsq1mixl7w9ejccnf220vrkxigqa8604y
+
 
 //gets the whole data from the city
 const getVaccineData = async () => {
@@ -23,7 +26,6 @@ const updateData = (data) => {
     let datesByZip = {};
     array.forEach(element => {
       if (!datesByZip.hasOwnProperty(element.zip_code)) {
-        console.log(`created ${element.zip_code}`);
         datesByZip[element.zip_code] = element.date;
       } else {
         let date = new Date(element.date);
@@ -49,14 +51,14 @@ const updateData = (data) => {
     let date = new Date(element.date);
     let zipDate = new Date(datesByZip[element.zip_code]);
     if (date.getTime() === zipDate.getTime()) {
-      console.log(element);
       const objToAdd = {
         zip: element.zip_code,
         percentVaxd: `${Math.round(element.vaccine_series_completed_percent_population * 1000) / 10}%`,
         pop: element.population,
-        percentFirstDosed: element._1st_dose_percent_population,
+        percentFirstDosed: `${Math.round(element._1st_dose_percent_population * 1000) / 10}%`,
         dosesYesterday: element.total_doses_daily,
         peopleVaxd: element.vaccine_series_completed_cumulative,
+        peopleFirstDosed: element._1st_dose_cumulative
       };
       latestData.push(objToAdd);
     };
@@ -65,25 +67,34 @@ const updateData = (data) => {
   return latestData;
 }
 
-//appends from array of selected indicators to DOM main & flexxy table 
+//appends ot DOM from array of objects of selected indicators  
 const generateTable = (latestData) => {
-
-  //adds all zip codes' populations and vaccine series completed
-  //then puts a big 'ol number for total percent vaxd
+  //generates summary statistics
   let totalChiPop = 0;
   let totalPopVaxd = 0;
   let totalPeopleVaxd = 0;
+  let totalDosesYesterday = 0;
+  let totalFirstDosed = 0;
   latestData.forEach(element => {
     totalChiPop += Number(element.pop);
     totalPopVaxd += (element.pop * element.percentVaxd);
     totalPeopleVaxd += Number(element.peopleVaxd);
+    totalDosesYesterday += Number(element.dosesYesterday);
+    totalFirstDosed += (Number(element.peopleFirstDosed));
   });
-  console.log(`total chi pop ${totalChiPop}`);
-  console.log(`city's % says: ${totalPopVaxd}`);
-  console.log(`calculated #: ${totalPeopleVaxd}`);
   const totalVaxd = totalPeopleVaxd / totalChiPop;
-  // console.log(totalVaxd);
 
+  const summaryStats = {
+    zip: "all",
+    percentVaxd: `${Math.round(totalVaxd * 1000) / 10}%`,
+    pop: totalChiPop,
+    percentFirstDosed: `${Math.round((totalFirstDosed / totalChiPop) * 1000) / 10}%`,
+    dosesYesterday: totalDosesYesterday,
+    peopleVaxd: totalPeopleVaxd,
+    peopleFirstDosed: totalFirstDosed
+  };
+  //append summary stats to pos 0 of array
+  latestData.splice(0, 0, summaryStats);
 
   //make big %
   const bigNumber = document.createTextNode(`${Math.round(totalVaxd * 1000) / 10}%`);
@@ -97,19 +108,18 @@ const generateTable = (latestData) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  //make big ratio
+  //make big ratio display
   const bigRatio = document.createTextNode(`${numberWithCommas(totalPeopleVaxd)} people out of ${numberWithCommas(totalChiPop)} total`);
   const ratioContainer = document.querySelector('.big-ratio');
   ratioContainer.append(bigRatio);
 
-
-
+  //make table, brick by brick - row by row
   const table = document.querySelector('.table');
   latestData.forEach(element => {
     const row = document.createElement('div');
     row.classList.add('table-row', 'observation');
     for (key in element) {
-      // console.log(element[key]);
+
       const cell = document.createElement('div');
       cell.classList.add('cell', key);
       const data = document.createTextNode(element[key]);
@@ -121,18 +131,15 @@ const generateTable = (latestData) => {
 }
 
 getVaccineData()
-  .then(response => generateTable(updateData(response)))
+  .then(response => generateTable(updateData(response)));
 
 
 //search function eliminates non-matching zips on keyup
-function searchPlease() {
+const searchPlease = () => {
   let input = document.querySelector('#searchbar').value;
   let rows = document.querySelectorAll('.observation')
-  // console.log(rows);
   rows.forEach(element => {
-    console.log(element.firstChild.innerText);
     if (!element.firstChild.innerText.includes(input)) {
-      console.log("bang");
       element.style.display = 'none';
     } else {
       element.style.display = 'flex';
@@ -141,16 +148,26 @@ function searchPlease() {
   });
 }
 const searchButton = document.querySelector('#searchbar');
-searchButton.addEventListener('keyup', searchPlease)
+searchButton.addEventListener('keyup', searchPlease);
+
+//header cells WILL reorder divs
+const reOrder = (e) => {
+
+  e.target.classList[1]
+}
 
 
-  //header cells WILL reorder divs
-// const headerCells = querySelectorAll('.table-row.header > cell');
-// headerCells.forEach(headerCell => {
+const headerCells = document.querySelectorAll('.table-row.header .cell');
+console.log(headerCells);
+headerCells.forEach(cell => {
+  cell.addEventListener('click', reOrder)
 
-// })
+})
 
 
-
+const expandRow = () => {
+  if (window is small)
+  do thing.
+}
 
 

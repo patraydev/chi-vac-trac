@@ -4,6 +4,9 @@ body {
   color: rgb(206, 166, 120);
 }
 
+a {
+  color: rgb(226, 166, 90);
+}
 
 .main-display {
   width: 80vw;
@@ -120,10 +123,12 @@ justify-content: center;
 .peopleVaxd{
   display: none;
 }
-.table-row {
-
-}
-
+  .peopleFirstDosed{
+    display: none;
+  }
+  .table .table-row:nth-of-type(2){
+    display: none;
+  }
 }
 
 /* // Medium devices (tablets, 576px and up) */
@@ -140,6 +145,12 @@ justify-content: center;
   .peopleVaxd{
     display: none;
   }
+  .peopleFirstDosed{
+    display: none;
+  }
+  .table .table-row:nth-of-type(2){
+    display: none;
+  }
 }
 
 /* // Medium devices (tablets, 768px and up) */
@@ -153,6 +164,9 @@ justify-content: center;
   .peopleVaxd{
     display: inline;
   }
+  .table .table-row:nth-of-type(2){
+    display: none;
+  }
 }
 
 /* // Large devices (desktops, 992px and up) */
@@ -161,11 +175,16 @@ justify-content: center;
     max-width: 30vw;
   }
   .cell{
-    max-width: 190px
+    max-width: 150px;
   }
  .dosesYesterday{
     display: inline;
   }
+  .percentFirstDosed{
+    display: inline;
+  }
+  .table .table-row:nth-of-type(2){
+    display: flex;
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
@@ -174,11 +193,9 @@ justify-content: center;
     max-width: 20vw;
 }
    .cell {
-    max-width: 200px;
+    max-width: 170px;
   }
-  .percentFirstDosed{
+  .peopleFirstDosed{
     display: inline;
   }
-  .dosesYesterday{
-    display: inline;
-  }
+}
