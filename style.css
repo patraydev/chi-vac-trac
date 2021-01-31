@@ -199,7 +199,7 @@ justify-content: center;
 /* // Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1380px) {
 .main-display{
-    max-width: 20vw;
+    max-width: 25vw;
 }
    .cell {
     max-width: 170px;
