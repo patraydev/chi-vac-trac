@@ -50,7 +50,7 @@ https://whimsical.com/p1-laptop-mvp-GhsYt8tMiTcYPdUP6Qq2PA
 
 MVP will be a display of the percent of Chicago population vaccinated, updated on a daily basis, followed by a tabular listing of all zip codes and percentages.
 
-PostMVP will add a map, expandable data on each zip code, and a search bar.
+PostMVP will add expandable data on each zip code and a search bar.
 
 #### MVP 
 
@@ -61,7 +61,6 @@ PostMVP will add a map, expandable data on each zip code, and a search bar.
 
 #### PostMVP  
 
-- Add slippy map with zip code tiles and tints for percentage completed
 - Expand zipcode data on click in table
 - Implement search bar with expanded data for zip codes
 - Add tablet and widescreen responsitivity
@@ -74,11 +73,11 @@ You are **responsible** for scheduling time with your squad to seek approval for
 
 |  Day | Deliverable | Status
 |---|---| ---|
-|Jan 25-26| Prompt / Wireframes / Priority Matrix / Timeframes | Incomplete
-|Jan 26| Project Approval | Incomplete
-|Jan 27| Core Application Structure (HTML, CSS, etc.) | Incomplete
-|Jan 28| Initial Clickable Model  | Incomplete
-|Jan 29| MVP | Incomplete
+|Jan 25-26| Prompt / Wireframes / Priority Matrix / Timeframes | complete
+|Jan 26| Project Approval | complete
+|Jan 27| Core Application Structure (HTML, CSS, etc.) | complete
+|Jan 28| Initial Clickable Model  | complete
+|Jan 29| MVP | complete
 |Feb 1| Presentations/Project Submission | Incomplete
 
 ## Priority Matrix
@@ -93,26 +92,26 @@ Time frames are also key in the development cycle.  You have limited time to cod
 
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Add basic HTML/CSS Structure | H | 3hrs|  |  |
-| Structure API call | H | 3hrs|  |  |
-| Filter data to receive needed info | H | 3hrs|  |  |
-| Append API data to DOM | H | 6hrs|  |  |
-| Research and apply progress bars | H | 3hrs|  |  |
-| Implement Search Bar | H | 4hrs|  |  |
-| Update Styling/Implement Flexbox | H | 4hrs|  |  |
-| Implement Map | H | 6hrs|  |  |
-| Troubleshoot and Finishing Touches | H | 2hrs|  |  |
-| Total | H | 32hrs|  |  |
+| Add basic HTML/CSS Structure | H | 3hrs|  | 4hrs |
+| Structure API call | H | 3hrs|  | 2hrs |
+| Filter data to receive needed info | H | 3hrs|  | 3hrs |
+| Append API data to DOM | H | 6hrs|  | 6hrs |
+| Research and apply progress bars | H | 3hrs|  | n/a |
+| Implement Search Bar | H | 4hrs|  | 2hrs |
+| Update Styling/Implement Flexbox | H | 4hrs|  | 6hrs |
+| Implement Map | H | 6hrs|  | n/a |
+| Troubleshoot and Finishing Touches | H | 2hrs|  | 6hrs |
+| Total | H | 32hrs|  | 29hrs |
 
 ## Code Snippet
 
 Use this section to include a brief code snippet of functionality that you are proud of and a brief description.  
 
 ```
-function reverse(string) {
-	// here is the code to reverse a string of text
-}
+getVaccineData()
+  .then(response => appendData(updateData(response)));
 ```
+This does everything; I like how succinct it reads.
 
 ## Change Log
- Use this section to document what changes were made and the reasoning behind those changes.  
+ I found out that South Side Weekly had implemented a Twitter vaccine bot last Tuesday; it has maps and is very well written. I scrapped my plan to add a map to this project and linked to theirs instead. I also reached out and had a nice conversation with one of the developers!  

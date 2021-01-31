@@ -80,7 +80,6 @@ const expandRow = (e) => {
     unExpand();
     e.target.parentNode.classList.add('expanded');
     e.target.parentNode.childNodes.forEach(child => {
-      // window.getComputedStyle(child).visibility = 'hidden';
       const cell = document.createElement('div');
       cell.classList.add('expanded-cell');
       const key = {
