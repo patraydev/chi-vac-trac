@@ -24,7 +24,7 @@ border: 5px solid rgb(126,168,167);
 min-height: 300px;
 }
 
-.fuck-covid {
+.fck-covid {
   font-weight: 500;
   margin: .5em;
   font-size: 5em;
@@ -66,6 +66,12 @@ justify-content: center;
   border: 2px solid rgb(126,168,167);
   color: rgb(206, 166, 120);
 }
+
+.text {
+  margin: 7px 0 7px 0;
+  text-align: center;
+}
+
 
 .table {
   display: flex;

@@ -153,8 +153,8 @@ const appendData = (latestData) => {
 
   //make big %
   const bigNumber = document.createTextNode(`${Math.round(totalVaxd * 1000) / 10}%`);
-  const fuckCovid = document.querySelector(".fuck-covid");
-  fuckCovid.append(bigNumber);
+  const fckCovid = document.querySelector(".fck-covid");
+  fckCovid.append(bigNumber);
 
 
   //function sourced from
