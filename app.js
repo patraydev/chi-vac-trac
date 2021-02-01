@@ -1,26 +1,13 @@
-//api token: ab51fqgncwi136oat93o6ukep
-//token secret: 5qbfefqlokm3wpcywgsq1mixl7w9ejccnf220vrkxigqa8604y
-//why you look at my secret?
-
 //gets the whole data from the city
 const getVaccineData = async () => {
   let response = await axios.get('https://data.cityofchicago.org/resource/553k-3xzc.json')
-
-  // ? $select = zip_code, vaccine_series_completed_percent_population, population, _1st_dose_percent_population, total_doses_daily, total_doses_cumulative, date, vaccine_series_completed_cumulative');
-  // let response = await axios.get('https://data.cityofchicago.org/resource/553k-3xzc.json?$select=distinct(zip_code)')
-  // console.log(response.data);
-  // if (response.status == 200) {
-  //   // test for status 
-  //   // console.log(response.status)
-  // }
   return response.data
 }
-
 
 //pulls data from each record for latest date and returns array
 const updateData = (data) => {
 
-  //iterates through the array return a object of zipcode:latest date pairs
+  //iterates through the array return a object of unique zipcode:latest date pairs
   const findCurrentDate = (array) => {
 
     let datesByZip = {};
@@ -35,7 +22,7 @@ const updateData = (data) => {
       };
     });
 
-    //updates latest date indicator
+    //updates latest date indicator to DOM
     const upDate = document.querySelector('#up-date');
     lastUpdate = datesByZip[60601].slice(0, 10);
     const dateData = document.createTextNode(`Data last updated: ${lastUpdate}`);
@@ -66,38 +53,6 @@ const updateData = (data) => {
 
   return latestData;
 }
-
-const unExpand = () => {
-  document.querySelectorAll('.expanded').forEach(thing => thing.classList.remove('expanded'));
-  document.querySelectorAll('.expanded-cell').forEach(thing => thing.remove());
-}
-
-//row expander
-const expandRow = (e) => {
-  //   if (window is small)
-  //   do thing. first thing.
-  if (e.target.classList.contains('cell')) {
-    unExpand();
-    e.target.parentNode.classList.add('expanded');
-    e.target.parentNode.childNodes.forEach(child => {
-      const cell = document.createElement('div');
-      cell.classList.add('expanded-cell');
-      const key = {
-        zip: 'zip code',
-        percentVaxd: '% vaccinated',
-        pop: 'population',
-        percentFirstDosed: '% received first dose',
-        dosesYesterday: 'doses given yesterday',
-        peopleVaxd: 'total vaccinated',
-        peopleFirstDosed: 'total received first dose'
-      };
-      const content = document.createTextNode(`${key[child.classList[1]]} : ${child.innerText}`);
-      e.target.parentNode.append(cell);
-      cell.append(content);
-
-    });
-  }
-};
 
 //tear down and rebuild, brick by brick - row by row
 const generateTable = (array) => {
@@ -195,7 +150,7 @@ searchButton.addEventListener('keyup', searchPlease);
 const reOrder = (e) => {
   unExpand();
   const rows = document.querySelectorAll('.table-row.observation');
-  //rows become objects to sort
+  //rows become an array of objects to sort
   let rowsArray = Array.from(rows, row => {
     let rObj = {};
     row.childNodes.forEach(child => {
@@ -203,7 +158,7 @@ const reOrder = (e) => {
     });
     return rObj;
   });
-  //remove % signs
+  //parse for sorting
   rowsArray.forEach(row => {
     row.percentVaxd = row.percentVaxd.replace('%', '');
     row.percentFirstDosed = row.percentFirstDosed.replace('%', '');
@@ -237,6 +192,8 @@ const reOrder = (e) => {
       }
     });
   };
+
+  //unparse
   rowsArray.forEach(row => {
     row.percentVaxd += '%';
     row.percentFirstDosed += '%';
@@ -247,6 +204,36 @@ const reOrder = (e) => {
   generateTable(rowsArray);
 }
 
-//adds event to header cells
+//adds sort functionality to to header cells
 const headerCells = document.querySelectorAll('.table-row.header .cell');
 headerCells.forEach(cell => cell.addEventListener('click', reOrder));
+
+//unexpander
+const unExpand = () => {
+  document.querySelectorAll('.expanded').forEach(thing => thing.classList.remove('expanded'));
+  document.querySelectorAll('.expanded-cell').forEach(thing => thing.remove());
+}
+
+//row expander
+const expandRow = (e) => {
+  if (e.target.classList.contains('cell')) {
+    unExpand();
+    e.target.parentNode.classList.add('expanded');
+    e.target.parentNode.childNodes.forEach(child => {
+      const cell = document.createElement('div');
+      cell.classList.add('expanded-cell');
+      const key = {
+        zip: 'zip code',
+        percentVaxd: '% vaccinated',
+        pop: 'population',
+        percentFirstDosed: '% received first dose',
+        dosesYesterday: 'doses given yesterday',
+        peopleVaxd: 'total vaccinated',
+        peopleFirstDosed: 'total received first dose'
+      };
+      const content = document.createTextNode(`${key[child.classList[1]]} : ${child.innerText}`);
+      e.target.parentNode.append(cell);
+      cell.append(content);
+    });
+  }
+};

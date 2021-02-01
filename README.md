@@ -8,6 +8,8 @@ Chicago Vaccine Tracker
 
 This project will pull data from the city of Chicago Open Data Project and create a dynamically updated, easy-to read, open source, and add-free tracker of the percentage of Chicago residents vaccinated against COVID-19 by zip code.
 
+Deployes at: https://patraydev.github.io
+
 ## API and Data Sample
 
 https://dev.socrata.com/foundry/data.cityofchicago.org/553k-3xzc
@@ -114,4 +116,4 @@ getVaccineData()
 This does everything; I like how succinct it reads.
 
 ## Change Log
- I found out that South Side Weekly had implemented a Twitter vaccine bot last Tuesday; it has maps and is very well written. I scrapped my plan to add a map to this project and linked to theirs instead. I also reached out and had a nice conversation with one of the developers!  
+ I found out that South Side Weekly had implemented a Twitter vaccine bot last Tuesday; it has maps and is very well written. I scrapped my plan to add a map to this project and linked to theirs instead. I also reached out and had a nice conversation with the developers!  
